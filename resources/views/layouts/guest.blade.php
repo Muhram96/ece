@@ -612,10 +612,20 @@
             });
         });
         const detailSyllabusLink = document.getElementById('detail-syllabus-link');
+        const download_brochure = document.getElementById('download_brochure');
+        const download_brochure_Yt = document.getElementById('download_brochure_Yt');
         const registrationForm = document.getElementById('registration-form');
         const closeBtn = document.getElementById('close-btn');
 
         detailSyllabusLink.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default link behavior
+            registrationForm.style.display = 'block'; // Show the popup form
+        });
+        download_brochure.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default link behavior
+            registrationForm.style.display = 'block'; // Show the popup form
+        });
+        download_brochure_Yt.addEventListener('click', (event) => {
             event.preventDefault(); // Prevent default link behavior
             registrationForm.style.display = 'block'; // Show the popup form
         });

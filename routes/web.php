@@ -3,10 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/',[App\Http\Controllers\HomeController::class,'home'])->name('/');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -16,6 +13,7 @@ Route::middleware([
     Route::get('/cms-gallery',[App\Http\Controllers\HomeController::class,'CmsGallery'])->name('cms-gallery');
     Route::get('/faculty-pro',[App\Http\Controllers\HomeController::class,'CmsFaculty'])->name('faculty-pro');
     Route::get('/admission',[App\Http\Controllers\HomeController::class,'CmsAdmission'])->name('admission');
+    Route::delete('/admission/{id}/delete', [App\Http\Controllers\HomeController::class, 'Admdestroy'])->name('adm-delete');
     Route::get('/contacts/{id}/edit', [App\Http\Controllers\HomeController::class, 'Contactedit'])->name('contact-edit');
     Route::delete('/contacts/{id}/delete', [App\Http\Controllers\HomeController::class, 'Contactdestroy'])->name('contact-delete');
     Route::get('/faculty-create', [App\Http\Controllers\HomeController::class, 'facultyCreate'])->name('faculty-create');
@@ -32,3 +30,5 @@ Route::get('/faculty',[App\Http\Controllers\HomeController::class,'faculty'])->n
 Route::get('/fee-structure',[App\Http\Controllers\HomeController::class,'feeStructure'])->name('fee-structure');
 Route::get('/contact-us',[App\Http\Controllers\HomeController::class,'contactus'])->name('contact-us');
 Route::POST('/contact-store',[App\Http\Controllers\HomeController::class,'contactmessage'])->name('contact-store');
+Route::POST('/broch_data',[App\Http\Controllers\HomeController::class,'brochureData'])->name('broch_data');
+Route::GET('/syllabus',[App\Http\Controllers\HomeController::class,'SyllabusView'])->name('syllabus');

@@ -92,7 +92,7 @@
             </p>
             <div class="flex flex-col md:flex-row items-center gap-4 pt-8">
                 <button
-                    class="border boder-amber-400 text-white bg-[#000080] text-white p-4 w-full md:w-auto"
+                    class="border boder-amber-400 text-white bg-[#000080] text-white p-4 w-full md:w-auto" id="download_brochure"
                 >
                     Download brochure
                 </button>
@@ -270,7 +270,7 @@
             class="flex flex-col md:flex-row items-center gap-4 justify-center my-8"
         >
             <button
-                class="bg-[#0C2E50] p-4 text-base font-medium text-white w-full md:w-auto"
+                class="bg-[#0C2E50] p-4 text-base font-medium text-white w-full md:w-auto" id="download_brochure_Yt"
             >
                 Download brochure
             </button>
@@ -938,21 +938,23 @@
                 <div class="space-y-4 p-8 flex flex-col flex-wrap">
                     <h4 class="text-4xl font-bold">Featured Faculty</h4>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div
-                            class="flex flex-col justify-center items-center p-4 shadow-2xl space-y-4"
-                        >
-                            <img
-                                src="{{ asset('eceimages/faculty.jpg') }}"
-                                alt="faculty"
-                                class="rounded-full w-32 object-cover"
-                            />
-                            <p class="text-xl font-medium">Prof. Rejesh NA</p>
-                            <button
-                                class="border-t border-yellow-400 border-b capitalize pt-8"
-                            >
-                                amuse
-                            </button>
-                        </div>
+                        @if(isset($faculty) && count($faculty) > 0)
+                            @foreach ($faculty as $member)
+                                <div class="flex flex-col justify-center items-center p-4 shadow-2xl space-y-4">
+                                    <img
+                                        src="{{ asset('eceimages/' . $member->image) }}"
+                                        alt="{{ $member->name }}"
+                                        class="rounded-full w-32 object-cover"
+                                    />
+                                    <p class="text-xl font-medium">{{ $member->name }}</p>
+                                    <button class="border-t border-yellow-400 border-b capitalize pt-8">
+                                        amuse
+                                    </button>
+                                </div>
+                            @endforeach
+                        @else
+                            <p>No faculty members found.</p>
+                        @endif
                     </div>
                 </div>
                 <div class="space-y-4 bg-[#f0f0f0] p-8 flex flex-col flex-wrap">
@@ -1170,18 +1172,17 @@
         <div class="form-container">
             <span class="close-btn" id="close-btn">&times;</span>
             <h2>Register</h2>
-            <form>
+
+            <form method="POST" action="{{ route('broch_data') }}">
+                @csrf
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
 
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
 
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-
-                <label for="confirm-password">Confirm Password:</label>
-                <input type="password" id="confirm-password" name="confirm-password" required>
+                <label for="password">Phone Number:</label>
+                <input type="text" id="phone" name="phone" required>
 
                 <button type="submit">Register</button>
             </form>

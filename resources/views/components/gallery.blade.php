@@ -1,84 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
-    <!-- from node_modules -->
-    <!-- <script src="node_modules/@material-tailwind/html/scripts/collapse.js"></script> -->
-
-    <!-- from cdn -->
-    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/collapse.js"></script>
-    <link rel="stylesheet" href="./css/style.css" />
-    <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Gallery</title>
 </head>
 <body>
-<div class="max-w-[1450px] mx-auto my-24">
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-5">
-        <div>
-            <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://pagedone.io/asset/uploads/1688025668.png"
-                alt="Gallery image"
-            />
-        </div>
-        <div>
-            <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://pagedone.io/asset/uploads/1688029344.png"
-                alt="Gallery image"
-            />
-        </div>
-        <div>
-            <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://pagedone.io/asset/uploads/1688029370.png"
-                alt="Gallery image"
-            />
-        </div>
-        <div>
-            <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://pagedone.io/asset/uploads/1688029384.png"
-                alt="Gallery image"
-            />
-        </div>
-        <div>
-            <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://pagedone.io/asset/uploads/1688029394.png"
-                alt="Gallery image"
-            />
-        </div>
-        <div>
-            <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://pagedone.io/asset/uploads/1688029408.png"
-                alt="Gallery image"
-            />
-        </div>
-        <div>
-            <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://pagedone.io/asset/uploads/1688029424.jpg"
-                alt="Gallery image"
-            />
-        </div>
-        <div>
-            <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://pagedone.io/asset/uploads/1688029434.png"
-                alt="Gallery image"
-            />
-        </div>
-        <div>
-            <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://pagedone.io/asset/uploads/1688029447.jpg"
-                alt="Gallery image"
-            />
-        </div>
+<div class="max-w-7xl mx-auto my-24 px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        @if(isset($gallery) && count($gallery) > 0)
+            @foreach ($gallery as $image)
+                <div class="rounded-lg overflow-hidden">
+                    <img
+                        src="{{ asset($image->image) }}"
+                        alt="Gallery image"
+                        class="h-auto w-full object-cover"
+                        style="height: 300px;"
+                    />
+                </div>
+            @endforeach
+        @else
+            <p class="text-center">No Gallery Images found.</p>
+        @endif
     </div>
 </div>
 </body>

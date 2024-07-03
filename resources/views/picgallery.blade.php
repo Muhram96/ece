@@ -5,6 +5,6 @@
         </h2>
     </x-slot>
 
-                <x-gallery/>
+                <x-gallery :gallery="$gallery"/>
 
 </x-guest-layout>

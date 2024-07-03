@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\ContactUs;
 use App\Models\FacultyProfile;
 use App\Models\Gallery;
+use App\Models\BrochureUserData;
 class HomeController extends Controller
 {
     public function home(){
-
+        $data = FacultyProfile::all();
+        return view('welcome', ['faculty' => $data]);
     }
 
     public function CmsGallery()
@@ -27,8 +29,16 @@ class HomeController extends Controller
 
     public function CmsAdmission()
     {
+        $data = BrochureUserData::paginate(5);
+        return view('cms.admission', ['data' => $data]);
+    }
 
-        return view('cms.admission');
+    public function Admdestroy($id)
+    {
+        $contact = BrochureUserData::findOrFail($id);
+        $contact->delete();
+
+        return redirect()->back()->with('success', 'User Data deleted successfully.');
     }
 
     public function CmsLanding()
@@ -37,7 +47,8 @@ class HomeController extends Controller
     }
 
     public function Gallery(){
-        return view('picgallery');
+        $gallery =  Gallery::all();
+        return view('picgallery',['gallery'=>$gallery]);
     }
 
     public function faculty(){
@@ -196,5 +207,26 @@ class HomeController extends Controller
 
         $data = Gallery::paginate(5);
         return redirect()->route('cms-gallery')->with('success', 'Faculty profile created successfully!');
+    }
+    public function SyllabusView(){
+        return view('brochureView');
+    }
+    public function brochureData(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+        ]);
+        BrochureUserData::where('email', $request->email)->delete();
+
+        BrochureUserData::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+        ]);
+
+            return redirect('/syllabus');
+
     }
 }
